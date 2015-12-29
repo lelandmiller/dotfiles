@@ -1,5 +1,9 @@
-set PATH $HOME/dotfiles/bin $HOME/bin $PATH
+set -x GOPATH ~/go
+set PATH $HOME/.npm-packages/bin $HOME/dotfiles/bin $HOME/bin $GOPATH/bin $PATH
 set -x EDITOR vim
+
+gulp --completion=fish | source
+
 
 function prompt_pwd --description 'Print the current working directory, NOT shortened to fit the prompt'
     if test "$PWD" != "$HOME"

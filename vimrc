@@ -1,54 +1,54 @@
-set shell=zsh
+set shell=bash
 
-"" Vundle
 set nocompatible             " required for Vundle and more 
-filetype off                  " required Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" filetype off                  " required Vundle
 
-"---------------------
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'lambdatoast/elm.vim'
-Plugin 'gmarik/Vundle.vim' " required
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'mxw/vim-jsx'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'bling/vim-airline'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'chriskempson/base16-vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'godlygeek/tabular'
-Plugin 'alunny/pegjs-vim'
-" Clojure
-Plugin 'tpope/vim-salve'
-Plugin 'tpope/vim-fireplace'
-Plugin 'kien/rainbow_parentheses.vim'
-" Pandoc and Markdown
- Plugin 'plasticboy/vim-markdown'
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
-Plugin 'dhruvasagar/vim-table-mode'
-" Go
-Plugin 'fatih/vim-go'
-Plugin 'majutsushi/tagbar'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'mileszs/ack.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'dag/vim-fish'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'Yggdroot/indentLine'
+" vim-plug
 
-"---------------------
+call plug#begin('~/.vim/plugged')
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+Plug 'scrooloose/nerdcommenter'
+Plug 'lambdatoast/elm.vim'
+Plug 'gmarik/Vundle.vim' " required
+Plug 'terryma/vim-multiple-cursors'
+Plug 'mxw/vim-jsx'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'Valloric/YouCompleteMe'
+Plug 'bling/vim-airline'
+Plug 'edkolev/tmuxline.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'kien/ctrlp.vim'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'godlygeek/tabular'
+Plug 'alunny/pegjs-vim'
+Plug 'tpope/vim-salve'
+Plug 'tpope/vim-fireplace'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'plasticboy/vim-markdown'
+"Plug 'vim-pandoc/vim-pandoc'
+"Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'fatih/vim-go'
+Plug 'majutsushi/tagbar'
+Plug 'digitaltoad/vim-jade'
+Plug 'mileszs/ack.vim'
+Plug 'mattn/emmet-vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'dag/vim-fish'
+Plug 'airblade/vim-gitgutter'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'Yggdroot/indentLine'
+
+Plug 'elzr/vim-json'
+
+
+" Add plugins to &runtimepath
+call plug#end()
+
+" filetype plugin indent on    " required
 "set omnifunc=syntaxcomplete#Complete
 " see :h vundle for more details or wiki for FAQ
 
@@ -62,7 +62,7 @@ set incsearch
 set ignorecase
 set smartcase
 
-"let base16colorspace=256
+let base16colorspace=256
 set background=dark
 "colorscheme solarized
 "colorscheme base16-monokai
@@ -226,3 +226,4 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
+let g:vim_json_syntax_conceal = 0

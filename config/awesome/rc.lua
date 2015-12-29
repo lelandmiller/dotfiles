@@ -52,7 +52,8 @@ editor_cmd = terminal .. " -e " .. editor
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod1"
+-- modkey = "Mod1"
+modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -81,12 +82,23 @@ end
 -- }}}
 
 -- {{{ Tags
+
+-- Old tags
 -- Define a tag table which hold all screen tags.
 tags = {}
 for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+	-- Each screen has its own tag table.
+	tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
 end
+
+-- Define a tag table which hold all screen tags.
+--tags = {
+		--names = { 1, 2, 3, 4, 5, 6, 7, 8, 9 },
+		--layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
+				   --layouts[1], layouts[1], layouts[1], layouts[1]
+		--}}
+--tags = sharetags.create_tags(tags.names, tags.layout)
+
 -- }}}
 
 -- {{{ Menu
@@ -230,6 +242,11 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+    -- Multiple monitors
+    awful.key({ modkey,           }, "w",     function () awful.screen.focus(1) end),
+    awful.key({ modkey,           }, "e",     function () awful.screen.focus(2) end),
+    awful.key({ modkey,           }, "r",     function () awful.screen.focus(3) end),
+    -- Global
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -243,8 +260,9 @@ globalkeys = awful.util.table.join(
         function ()
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
+            --warp_mouse()
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -277,7 +295,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    -- awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -502,6 +520,19 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 
+--local function warp_mouse(screen)
+    --c = client.focus
+    --if c then
+        --local g = c:geometry()
+        --mouse.coords { x = g.x + 5, y = g.y + 5 }
+    --end
+--end
 
-awful.util.spawn_with_shell("/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1")
+--for s = 1, screen.count() do
+    --screen[s]:connect_signal("arrange", function (screen)
+        --warp_mouse(screen)
+    --end)
+--end
+
+--awful.util.spawn_with_shell("/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1")
 -- os.execute("run_once nm-applet --sm-disable &")

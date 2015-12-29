@@ -4,7 +4,7 @@
 
 theme = {}
 
-theme.font          = "Source Code Pro 16"
+theme.font          = "Source Code Pro 10"
 -- theme.font          = "Helvetica Neue 16"
 
 

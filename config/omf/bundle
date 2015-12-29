@@ -1,4 +1,5 @@
-package brew
+package bang-bang
+theme agnoster
 theme bobthefish
 theme budspencer
 theme cmorrell

@@ -54,3 +54,4 @@ function fuck -d 'Correct your previous console command'
         history --delete $fucked_up_commandd
     end
 end
+

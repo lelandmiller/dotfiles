@@ -7,6 +7,8 @@ set nocompatible             " required for Vundle and more
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'tpope/vim-surround'
+Plug 'ternjs/tern_for_vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'lambdatoast/elm.vim'
 Plug 'gmarik/Vundle.vim' " required
@@ -14,7 +16,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe'
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
@@ -26,10 +29,11 @@ Plug 'godlygeek/tabular'
 Plug 'alunny/pegjs-vim'
 Plug 'tpope/vim-salve'
 Plug 'tpope/vim-fireplace'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'plasticboy/vim-markdown'
-"Plug 'vim-pandoc/vim-pandoc'
-"Plug 'vim-pandoc/vim-pandoc-syntax'
+"Plug 'kien/rainbow_parentheses.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
+"Plug 'plasticboy/vim-markdown'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'fatih/vim-go'
 Plug 'majutsushi/tagbar'
@@ -41,6 +45,7 @@ Plug 'dag/vim-fish'
 Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Yggdroot/indentLine'
+Plug 'benekastah/neomake'
 
 Plug 'elzr/vim-json'
 
@@ -52,6 +57,7 @@ call plug#end()
 "set omnifunc=syntaxcomplete#Complete
 " see :h vundle for more details or wiki for FAQ
 
+"autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 "" Misc
 syntax on
@@ -79,11 +85,6 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 
-" Rainbow Parentheses
-au VimEnter *.clj RainbowParenthesesToggle
-au Syntax *.clj RainbowParenthesesLoadRound
-au Syntax *.clj RainbowParenthesesLoadSquare
-au Syntax *.clj RainbowParenthesesLoadBraces
 
 " Was used for ctrl-p, still may be useful
 :set wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/*,**/build/*
@@ -195,10 +196,12 @@ noremap <Leader>b :TagbarOpen fj<cr>
 " set guioptions-=r
 " set guioptions-=L
 
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+au VimEnter * RainbowParentheses
+let g:rainbow#blacklist = [239,8]
 
 
 " Custom Key Bindings
@@ -227,3 +230,47 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 let g:vim_json_syntax_conceal = 0
+
+" Neomake
+autocmd! BufWritePost,BufEnter * Neomake
+let g:neomake_open_list = 2
+
+
+" Use local eslint if available
+"function! neomake#makers#ft#javascript#eslint()
+let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+if matchstr(local_eslint, "^\/\\w") == ''
+    let local_eslint = getcwd() . "/" . local_eslint
+endif
+"if executable(local_eslint)
+    "let exec = local_eslint
+"endif
+let eslintexec = executable(local_eslint) ? local_eslint : 'eslint'
+
+
+let g:neomake_javascript_eslint_maker = {
+    \ 'exe': eslintexec,
+    \ 'args': ['-f', 'compact'],
+    \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+    \ '%W%f: line %l\, col %c\, Warning - %m'
+    \ }
+
+"g:neomake_javascript_enabled_makers = ['eslint']
+"endfunction
+
+let g:multi_cursor_exit_from_insert_mode = 0
+let g:multi_cursor_exit_from_visual_mode = 0
+
+" Called once right before you start selecting multiple cursors
+function! Multiple_cursors_before()
+  if exists(':NeoCompleteLock')==2
+    exe 'NeoCompleteLock'
+  endif
+endfunction
+
+" Called once only when the multiple selection is canceled (default <Esc>)
+function! Multiple_cursors_after()
+  if exists(':NeoCompleteUnlock')==2
+    exe 'NeoCompleteUnlock'
+  endif
+endfunction

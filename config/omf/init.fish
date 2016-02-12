@@ -1,5 +1,7 @@
+source $OMF_CONFIG/secret.fish
+set -x LS_COLORS 'di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
 set -x GOPATH ~/go
-set PATH $HOME/.npm-packages/bin $HOME/dotfiles/bin $HOME/bin $GOPATH/bin $PATH
+set PATH $HOME/.npm-packages/bin $HOME/dotfiles/bin $HOME/bin $GOPATH/bin $PATH $HOME/.cabal/bin $HOME/.gem/ruby/2.3.0/bin
 set -x EDITOR vim
 
 gulp --completion=fish | source

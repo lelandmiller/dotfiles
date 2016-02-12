@@ -1,4 +1,4 @@
 function TODO
-    vim ~/Desktop/TODO.md
+    vim ~/notes/todo.md
 end
 

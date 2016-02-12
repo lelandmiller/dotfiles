@@ -1,54 +1,63 @@
-set shell=bash
+set shell=sh
 
-set nocompatible             " required for Vundle and more 
+"set nocompatible             " required for Vundle and more 
 " filetype off                  " required Vundle
 
 " vim-plug
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-surround'
-Plug 'ternjs/tern_for_vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'lambdatoast/elm.vim'
-Plug 'gmarik/Vundle.vim' " required
-Plug 'terryma/vim-multiple-cursors'
-Plug 'mxw/vim-jsx'
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'scrooloose/syntastic'
-Plug 'Valloric/YouCompleteMe'
-Plug 'bling/vim-airline'
-Plug 'edkolev/tmuxline.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'kien/ctrlp.vim'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'maksimr/vim-jsbeautify'
-Plug 'godlygeek/tabular'
-Plug 'alunny/pegjs-vim'
-Plug 'tpope/vim-salve'
-Plug 'tpope/vim-fireplace'
-"Plug 'kien/rainbow_parentheses.vim'
-Plug 'junegunn/rainbow_parentheses.vim'
-"Plug 'plasticboy/vim-markdown'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'fatih/vim-go'
-Plug 'majutsushi/tagbar'
-Plug 'digitaltoad/vim-jade'
-Plug 'mileszs/ack.vim'
-Plug 'mattn/emmet-vim'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'dag/vim-fish'
+Plug 'lnl7/vim-nix'
 Plug 'airblade/vim-gitgutter'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'Yggdroot/indentLine'
+Plug 'shougo/vimproc.vim'
+Plug 'quramy/tsuquyomi'
+Plug 'leafgarland/typescript-vim'
+Plug 'christoomey/vim-conflicted'
 Plug 'benekastah/neomake'
-
+Plug 'cdated/rainbow_parentheses.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'dag/vim-fish'
+Plug 'digitaltoad/vim-jade'
 Plug 'elzr/vim-json'
-
+Plug 'fatih/vim-go'
+Plug 'gmarik/Vundle.vim' " required
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'lambdatoast/elm.vim'
+Plug 'majutsushi/tagbar'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-grepper'
+Plug 'rhysd/conflict-marker.vim'
+Plug 'mustache/vim-mustache-handlebars'
+"Plug 'othree/yajs.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'ternjs/tern_for_vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'valloric/YouCompleteMe'
+Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'yggdroot/indentLine'
+"Plug 'Lokaltog/vim-easymotion'
+"Plug 'alunny/pegjs-vim'
+"Plug 'bling/vim-airline'
+"Plug 'dhruvasagar/vim-table-mode'
+"Plug 'edkolev/tmuxline.vim'
+"Plug 'godlygeek/tabular'
+"Plug 'junegunn/rainbow_parentheses.vim'
+"Plug 'kien/rainbow_parentheses.vim'
+"Plug 'mileszs/ack.vim'
+"Plug 'mxw/vim-jsx'
+"Plug 'scrooloose/syntastic'
+"Plug 'tpope/vim-fireplace'
+"Plug 'tpope/vim-salve'
+"Plug 'tpope/vim-unimpaired'
+"Plug 'vim-pandoc/vim-pandoc'
+"Plug 'vim-pandoc/vim-pandoc-syntax'
+"Plug 'w0ng/vim-hybrid'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -87,7 +96,7 @@ set tabstop=4
 
 
 " Was used for ctrl-p, still may be useful
-:set wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/*,**/build/*
+:set wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/*,**/build/*,**/dist/*
 
 "" NERDtree
 map <C-n> :NERDTreeToggle<CR>
@@ -196,12 +205,10 @@ noremap <Leader>b :TagbarOpen fj<cr>
 " set guioptions-=r
 " set guioptions-=L
 
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-au VimEnter * RainbowParentheses
-let g:rainbow#blacklist = [239,8]
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 
 " Custom Key Bindings
@@ -255,7 +262,18 @@ let g:neomake_javascript_eslint_maker = {
     \ '%W%f: line %l\, col %c\, Warning - %m'
     \ }
 
-"g:neomake_javascript_enabled_makers = ['eslint']
+
+
+"let g:neomake_html_eslint_maker = {
+    "\ 'exe': eslintexec,
+    "\ 'args': ['-f', 'compact'],
+    "\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+    "\ '%W%f: line %l\, col %c\, Warning - %m'
+    "\ }
+
+let g:neomake_javascript_enabled_makers = ['eslint_d']
+let g:neomake_typescript_enabled_makers = []
+"let g:neomake_html_enabled_makers = ['eslint']
 "endfunction
 
 let g:multi_cursor_exit_from_insert_mode = 0
@@ -274,3 +292,13 @@ function! Multiple_cursors_after()
     exe 'NeoCompleteUnlock'
   endif
 endfunction
+
+nnoremap <leader>ag :Grepper -tool ag -open -switch<cr>
+
+nnoremap <M-n> :lne<cr>
+nnoremap <M-p> :lprevious<cr>
+"map <C-n> :NERDTreeToggle<CR>
+nnoremap <silent> <C-;> :lne<cr>
+
+"au WinLeave * set nocursorline nocursorcolumn
+"au WinEnter * set cursorline cursorcolumn

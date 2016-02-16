@@ -1,6 +1,0 @@
-function fish_greeting
-    #welcomez
-    #fortune
-    date
-    cat ~/.config/fish/functions/welcome.txt
-end

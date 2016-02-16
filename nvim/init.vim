@@ -5,7 +5,7 @@ set shell=sh
 
 " vim-plug
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 Plug 'lnl7/vim-nix'
 Plug 'airblade/vim-gitgutter'

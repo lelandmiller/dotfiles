@@ -2,7 +2,7 @@
 
 export DE=generic
 #xss-lock -- xscreensaver-command -lock &
-compton -b --inactive-dim .1 --backend glx
+compton -b --inactive-dim .1 --backend glx -im --no-fading-openclose
 xfce4-power-manager
 
 xbindkeys
@@ -32,16 +32,16 @@ case "$WM" in
          --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
         xmonad
         ;;
-    qtile)
+    awesome)
+        #wingo
+        #i3
+        awesome
+        ;;
+    *)
         echo "Starting qtile..." >> ~/.qtile.log
         dunst &
         feh --bg-scale ~/dotfiles/config/awesome/back.jpg & 
         qtile >> ~/.qtile.log 2>> ~/.qtile.log
-        ;;
-    *)
-        #wingo
-        #i3
-        awesome
         ;;
 esac
 

@@ -30,7 +30,8 @@ Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-grepper'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'mustache/vim-mustache-handlebars'
-"Plug 'othree/yajs.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'othree/yajs.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -39,6 +40,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'valloric/YouCompleteMe'
+"Plug 'shougo/deoplete.nvim'
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
 "Plug 'Lokaltog/vim-easymotion'
@@ -302,3 +304,23 @@ nnoremap <silent> <C-;> :lne<cr>
 
 "au WinLeave * set nocursorline nocursorcolumn
 "au WinEnter * set cursorline cursorcolumn
+"
+
+" Easymotion
+
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap <Space>f <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+"nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Space>j <Plug>(easymotion-j)
+map <Space>k <Plug>(easymotion-k)

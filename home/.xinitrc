@@ -1,7 +1,6 @@
 #/bin/sh
 
 export DE=generic
-#xss-lock -- xscreensaver-command -lock &
 compton -b --inactive-dim .1 --backend glx -im --no-fading-openclose
 xfce4-power-manager
 
@@ -18,11 +17,9 @@ xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
 xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
 xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
 xinput set-prop "TPPS/2 IBM TrackPoint" "Device Accel Constant Deceleration" 0.95
+xinput --disable "SynPS/2 Synaptics TouchPad"
 
-#eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-#export SSH_AUTH_SOCK
-
 xscreensaver -no-splash &
 nm-applet &
 
@@ -33,8 +30,6 @@ case "$WM" in
         xmonad
         ;;
     awesome)
-        #wingo
-        #i3
         awesome
         ;;
     *)
@@ -44,18 +39,3 @@ case "$WM" in
         qtile >> ~/.qtile.log 2>> ~/.qtile.log
         ;;
 esac
-
-#qtile
-
-#old
-
-#node /home/lelandmiller/dev/dwmstatus/status.js &
-#cbatticon&
-#feh --bg-scale ~/bg.jpg
-
-#while true; do
-    # Log stderror to a file 
-    #dwm 2> ~/.dwm.log
-    # No error logging
-    #dwm >/dev/null 2>&1
-#done

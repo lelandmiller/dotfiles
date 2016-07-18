@@ -9,7 +9,7 @@ done
 
 for file in $(ls -A config)
 do
-  ln -sf $(pwd)/config/$file ~/.config/$file
+  ln -sf $(pwd)/config/$file ~/.config/
 done
 
 ln -sf $(pwd)/nvim/init.vim ~/.config/nvim/

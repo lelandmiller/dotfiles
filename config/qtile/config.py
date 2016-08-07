@@ -29,8 +29,11 @@ from libqtile.command import lazy
 from libqtile import layout, bar, widget
 
 from systray import Systray
+import subprocess
+import os
 
 mod = "mod4"
+
 
 keys = [
     # Switch between windows in current stack pane

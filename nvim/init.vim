@@ -7,45 +7,11 @@ set shell=sh
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'lnl7/vim-nix'
-Plug 'airblade/vim-gitgutter'
-Plug 'shougo/vimproc.vim'
-Plug 'quramy/tsuquyomi'
-Plug 'leafgarland/typescript-vim'
-Plug 'christoomey/vim-conflicted'
-Plug 'benekastah/neomake'
-Plug 'cdated/rainbow_parentheses.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'dag/vim-fish'
-Plug 'digitaltoad/vim-jade'
-Plug 'elzr/vim-json'
-Plug 'fatih/vim-go'
-Plug 'gmarik/Vundle.vim' " required
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'lambdatoast/elm.vim'
-Plug 'majutsushi/tagbar'
-Plug 'maksimr/vim-jsbeautify'
-Plug 'mattn/emmet-vim'
-Plug 'mhinz/vim-grepper'
-Plug 'rhysd/conflict-marker.vim'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'easymotion/vim-easymotion'
-Plug 'othree/yajs.vim'
-Plug 'plasticboy/vim-markdown'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
-Plug 'ternjs/tern_for_vim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'valloric/YouCompleteMe'
-"Plug 'shougo/deoplete.nvim'
-Plug 'xuyuanp/nerdtree-git-plugin'
-Plug 'yggdroot/indentLine'
 "Plug 'Lokaltog/vim-easymotion'
 "Plug 'alunny/pegjs-vim'
 "Plug 'bling/vim-airline'
+Plug 'christoomey/vim-tmux-navigator'
+"Plug 'dag/vim-fish'
 "Plug 'dhruvasagar/vim-table-mode'
 "Plug 'edkolev/tmuxline.vim'
 "Plug 'godlygeek/tabular'
@@ -54,12 +20,47 @@ Plug 'yggdroot/indentLine'
 "Plug 'mileszs/ack.vim'
 "Plug 'mxw/vim-jsx'
 "Plug 'scrooloose/syntastic'
+"Plug 'shougo/deoplete.nvim'
 "Plug 'tpope/vim-fireplace'
 "Plug 'tpope/vim-salve'
 "Plug 'tpope/vim-unimpaired'
 "Plug 'vim-pandoc/vim-pandoc'
 "Plug 'vim-pandoc/vim-pandoc-syntax'
 "Plug 'w0ng/vim-hybrid'
+Plug 'sgur/vim-gitgutter' " lazy gutter
+"Plug 'airblade/vim-gitgutter'
+Plug 'benekastah/neomake'
+Plug 'cdated/rainbow_parentheses.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'christoomey/vim-conflicted'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'digitaltoad/vim-jade'
+Plug 'easymotion/vim-easymotion'
+Plug 'elzr/vim-json'
+Plug 'fatih/vim-go'
+"Plug 'gmarik/Vundle.vim' " required
+Plug 'lambdatoast/elm.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'lnl7/vim-nix'
+Plug 'majutsushi/tagbar'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-grepper'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'othree/yajs.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'Quramy/tsuquyomi'
+Plug 'rhysd/conflict-marker.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'ternjs/tern_for_vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe', {'do' : './install.py --clang-completer --tern-completer'}
+Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'yggdroot/indentLine'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -83,7 +84,7 @@ let base16colorspace=256
 set background=dark
 "colorscheme solarized
 "colorscheme base16-monokai
-colorscheme base16-default
+colorscheme base16-default-dark
 
 set number
 set relativenumber
@@ -274,7 +275,7 @@ let g:neomake_javascript_eslint_maker = {
     "\ }
 
 let g:neomake_javascript_enabled_makers = ['eslint_d']
-let g:neomake_typescript_enabled_makers = []
+let g:neomake_typescript_enabled_makers = ['tslint']
 "let g:neomake_html_enabled_makers = ['eslint']
 "endfunction
 

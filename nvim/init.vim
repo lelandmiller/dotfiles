@@ -19,7 +19,7 @@ Plug 'christoomey/vim-tmux-navigator'
 "Plug 'kien/rainbow_parentheses.vim'
 "Plug 'mileszs/ack.vim'
 "Plug 'mxw/vim-jsx'
-"Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 "Plug 'shougo/deoplete.nvim'
 "Plug 'tpope/vim-fireplace'
 "Plug 'tpope/vim-salve'
@@ -29,7 +29,7 @@ Plug 'christoomey/vim-tmux-navigator'
 "Plug 'w0ng/vim-hybrid'
 Plug 'sgur/vim-gitgutter' " lazy gutter
 "Plug 'airblade/vim-gitgutter'
-Plug 'benekastah/neomake'
+"Plug 'benekastah/neomake'
 Plug 'cdated/rainbow_parentheses.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-conflicted'
@@ -97,16 +97,11 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 
-
 " Was used for ctrl-p, still may be useful
 :set wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/*,**/build/*,**/dist/*
 
-"" NERDtree
-map <C-n> :NERDTreeToggle<CR>
-
 "" Unite
 "nnoremap <C-p> :Unite file_rec/async<CR>
-
 
 " setting the indenting width for html, xml and php files (you can add more)
 autocmd FileType html,xml,php setlocal expandtab shiftwidth=4 tabstop=4
@@ -127,7 +122,6 @@ autocmd FileType javascript vnoremap <buffer> <Leader>f :call RangeJsBeautify()<
 autocmd FileType html vnoremap <buffer> <Leader>f :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <Leader>f :call RangeCSSBeautify()<cr>
 
-
 " GO SETTINGS
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
@@ -135,6 +129,9 @@ au FileType go nmap <Leader>dh <Plug>(go-def-split)
 au FileType go nmap <Leader>gi :GoImports<cr>
 au FileType go nmap <Leader>gn :GoInstall<cr>
 au FileType go nmap <Leader>gt :GoTest<cr>
+
+"" NERDtree
+map <C-n> :NERDTreeToggle<CR>
 
 " Start NERDTree on no files specified
 " autocmd vimenter * if !argc() | NERDTree | endif
@@ -146,7 +143,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 set laststatus=2
 
-"map <C-n> :NERDTreeToggle<CR>
+" syntastic config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 "jslint
 let g:syntastic_javascript_checkers = ['eslint']
@@ -155,6 +155,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tslint', 'tsuquyomi'] " You shouldn't use 'tsc' checker.
+
+let g:syntastic_aggregate_errors = 1
 
 "key to remove highlighting
 :map <Leader>h  :noh<Return><Esc>
@@ -242,7 +247,7 @@ let g:multi_cursor_quit_key='<Esc>'
 let g:vim_json_syntax_conceal = 0
 
 " Neomake
-autocmd! BufWritePost,BufEnter * Neomake
+"autocmd! BufWritePost,BufEnter * Neomake
 let g:neomake_open_list = 2
 
 
@@ -300,7 +305,6 @@ nnoremap <leader>ag :Grepper -tool ag -open -switch<cr>
 
 nnoremap <M-n> :lne<cr>
 nnoremap <M-p> :lprevious<cr>
-"map <C-n> :NERDTreeToggle<CR>
 nnoremap <silent> <C-;> :lne<cr>
 
 "au WinLeave * set nocursorline nocursorcolumn

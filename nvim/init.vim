@@ -19,7 +19,7 @@ Plug 'christoomey/vim-tmux-navigator'
 "Plug 'kien/rainbow_parentheses.vim'
 "Plug 'mileszs/ack.vim'
 "Plug 'mxw/vim-jsx'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 "Plug 'shougo/deoplete.nvim'
 "Plug 'tpope/vim-fireplace'
 "Plug 'tpope/vim-salve'
@@ -29,7 +29,7 @@ Plug 'scrooloose/syntastic'
 "Plug 'w0ng/vim-hybrid'
 Plug 'sgur/vim-gitgutter' " lazy gutter
 "Plug 'airblade/vim-gitgutter'
-"Plug 'benekastah/neomake'
+Plug 'benekastah/neomake'
 Plug 'cdated/rainbow_parentheses.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-conflicted'
@@ -247,21 +247,16 @@ let g:multi_cursor_quit_key='<Esc>'
 let g:vim_json_syntax_conceal = 0
 
 " Neomake
-"autocmd! BufWritePost,BufEnter * Neomake
+autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
-
 
 " Use local eslint if available
 "function! neomake#makers#ft#javascript#eslint()
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+let local_eslint = finddir('node_modules', ';') . '/.bin/eslint'
 if matchstr(local_eslint, "^\/\\w") == ''
     let local_eslint = getcwd() . "/" . local_eslint
 endif
-"if executable(local_eslint)
-    "let exec = local_eslint
-"endif
 let eslintexec = executable(local_eslint) ? local_eslint : 'eslint'
-
 
 let g:neomake_javascript_eslint_maker = {
     \ 'exe': eslintexec,
@@ -270,19 +265,22 @@ let g:neomake_javascript_eslint_maker = {
     \ '%W%f: line %l\, col %c\, Warning - %m'
     \ }
 
-
-
-"let g:neomake_html_eslint_maker = {
-    "\ 'exe': eslintexec,
-    "\ 'args': ['-f', 'compact'],
-    "\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-    "\ '%W%f: line %l\, col %c\, Warning - %m'
-    "\ }
+let node_modules = finddir('node_modules', ';')
+let local_tsc = len(node_modules) != 0 ? './' . node_modules . '/.bin/tsc' : 'tsc'
+let tsconfig = findfile('tsconfig.json', ';')
+let g:neomake_typescript_typescript_project_maker = {
+    \ 'exe': local_tsc,
+    \ 'args': ['--noEmit', '-p', tsconfig],
+    \ 'append_file': 0,
+    \ 'errorformat':
+        \ '%E%f %#(%l\,%c): error %m,' .
+        \ '%E%f %#(%l\,%c): %m,' .
+        \ '%Eerror %m,' .
+        \ '%C%\s%\+%m'
+    \ }
 
 let g:neomake_javascript_enabled_makers = ['eslint_d']
-let g:neomake_typescript_enabled_makers = ['tslint']
-"let g:neomake_html_enabled_makers = ['eslint']
-"endfunction
+let g:neomake_typescript_enabled_makers = ['tslint', 'typescript_project']
 
 let g:multi_cursor_exit_from_insert_mode = 0
 let g:multi_cursor_exit_from_visual_mode = 0
@@ -307,8 +305,10 @@ nnoremap <M-n> :lne<cr>
 nnoremap <M-p> :lprevious<cr>
 nnoremap <silent> <C-;> :lne<cr>
 
-"au WinLeave * set nocursorline nocursorcolumn
-"au WinEnter * set cursorline cursorcolumn
+:let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+au WinLeave * set nocursorline nocursorcolumn
+au WinEnter * set cursorline cursorcolumn
 "
 
 " Easymotion

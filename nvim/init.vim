@@ -58,6 +58,7 @@ Plug 'ternjs/tern_for_vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+" YouCompleteMe will fail without CMake
 Plug 'Valloric/YouCompleteMe', {'do' : './install.py --clang-completer --tern-completer'}
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
@@ -141,25 +142,25 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "python powerline_setup()
 "python del powerline_setup
 
-set laststatus=2
+"set laststatus=2
 
 " syntastic config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 "jslint
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tslint', 'tsuquyomi'] " You shouldn't use 'tsc' checker.
+"let g:tsuquyomi_disable_quickfix = 1
+"let g:syntastic_typescript_checkers = ['tslint', 'tsuquyomi'] " You shouldn't use 'tsc' checker.
 
-let g:syntastic_aggregate_errors = 1
+"let g:syntastic_aggregate_errors = 1
 
 "key to remove highlighting
 :map <Leader>h  :noh<Return><Esc>

@@ -86,7 +86,7 @@ alias fuck='eval $(thefuck $(fc -ln -1))'
 
 alias cit="cd ~/citrix"
 alias gem="cd ~/citrix/gemini"
-alias raa="cd ~/citrix/raascal-js"
+alias raa="cd ~/citrix/raascal/raascal-js"
 alias dev="cd ~/code"
 alias rrr="~/citrix/rtc-sdk"
 alias ddd="~/citrix/delta-player"
@@ -102,3 +102,5 @@ cdpath=(~ ~/citrix)
 alias distc="git checkout dist && git clean -fd dist"
 alias vs="visual-studio-code ."
 alias sl="subl3 ."
+
+source ~/dotfiles/pkg/base16-atelier-lakeside.sh

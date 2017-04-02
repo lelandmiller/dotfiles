@@ -59,6 +59,7 @@ fi
 #export PATH=/home/lelandmiller/bin:$PATH
 path+=("${HOME}/bin" "${HOME}/Library/Haskell/bin")
 path+=("${HOME}/local/bin")
+path+=("${HOME}/bin/gradle-3.3/bin")
 path+=("${HOME}/.npm-packages/bin")
 path+=("${HOME}/dotfiles/bin")
 path+=("${HOME}/.gem/ruby/2.2.0/bin")
@@ -84,12 +85,8 @@ path+=("/usr/local/lib/python2.7/site-packages")
 
 alias fuck='eval $(thefuck $(fc -ln -1))'
 
-alias cit="cd ~/citrix"
-alias gem="cd ~/citrix/gemini"
-alias raa="cd ~/citrix/raascal/raascal-js"
+alias raa="cd ~/lmi/raascal-mono/"
 alias dev="cd ~/code"
-alias rrr="~/citrix/rtc-sdk"
-alias ddd="~/citrix/delta-player"
 
 export NVM_DIR="/Users/lelandmiller/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

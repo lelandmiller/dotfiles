@@ -3,14 +3,14 @@
 xrandr --output eDP1 --off
 xrandr --output DP2-1 --mode 1920x1200
 xrandr --output DP2-2 --mode 1920x1200 --right-of DP2-1
-xrandr --output DP2-3 --mode 1920x1200 --left-of DP2-1
+xrandr --output DP2-3 --mode 1920x1200 --left-of DP2-1 --crtc 2
 
 
 #xrandr --output DP2-1 --mode 1920x1200 --rate 60 --right-of eDP1
 #xrandr --output DP2-2 --mode 1920x1200 --rate 60 --right-of DP2-1
 #xrandr --output eDP1 --off
 
-echo 'restart' | qsh
+echo 'restart' | qshell
 xmodmap $HOME/.Xmodmap
 feh --bg-scale ~/dotfiles/config/awesome/back.jpg&
 

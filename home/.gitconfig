@@ -5,3 +5,5 @@
 	default = simple
 [core]
     autocrlf = input
+[credential]
+	helper = /usr/lib/git-core/git-credential-gnome-keyring

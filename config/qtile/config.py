@@ -32,7 +32,7 @@ from systray import Systray
 import subprocess
 import os
 
-mod = "mod4"
+mod = "mod1"
 
 
 keys = [
@@ -77,7 +77,7 @@ keys = [
     ),
     Key(
         [mod, "shift"], "Return",
-        lazy.spawn("dmenu_run  -h 30 -fn 'Fira Mono for Powerline-10' -dim .3")
+        lazy.spawn("dmenu_run -h 30 -fn 'Fira Mono for Powerline-10' -dim .3")
     ),
 
 
@@ -85,10 +85,11 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key(
-        [mod, "shift"], "Return",
-        lazy.layout.toggle_split()
-    ),
+    # Key(
+    #     [mod, "shift"], "Return",
+    #     lazy.layout.toggle_split()
+    # ),
+
     Key([mod], "Return", lazy.spawn("termite")),
 
     # Toggle between different layouts as defined below
@@ -98,9 +99,9 @@ keys = [
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     # Key([mod], "r", lazy.spawncmd()),
-    Key([mod], "w", lazy.to_screen(2)),
-    Key([mod], "e", lazy.to_screen(0)),
-    Key([mod], "r", lazy.to_screen(1)),
+    Key([mod], "q", lazy.to_screen(2)),
+    Key([mod], "w", lazy.to_screen(0)),
+    Key([mod], "e", lazy.to_screen(1)),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
@@ -139,6 +140,20 @@ screens = [
                 widget.Systray(),
                 Systray(),
                 widget.Notify(),
+                widget.BatteryIcon(battery_name='BAT0'),
+                widget.BatteryIcon(battery_name='BAT1'),
+                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+            ],
+            30,
+        ),
+    ),
+    Screen(
+        top=bar.Bar(
+            [
+                widget.GroupBox(),
+                # widget.Prompt(),
+                widget.WindowName(),
+                # widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
             30,
@@ -173,7 +188,19 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = True
-floating_layout = layout.Floating()
+floating_layout = layout.Floating(
+    float_rules=[{'wmclass': wmclass} for wmclass in (
+        'Download',
+        'conky'
+    )],
+    auto_float_types=[
+        'notification',
+        'toolbar',
+        'splash',
+        'dialog'
+    ]
+)
+
 auto_fullscreen = True
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this

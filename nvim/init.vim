@@ -7,62 +7,73 @@ set shell=sh
 
 call plug#begin('~/.config/nvim/plugged')
 
+
+
 "Plug 'Lokaltog/vim-easymotion'
+Plug 'rust-lang/rust.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'sebastianmarkow/deoplete-rust'
+
+"Plug 'airblade/vim-gitgutter'
 "Plug 'alunny/pegjs-vim'
 "Plug 'bling/vim-airline'
-Plug 'christoomey/vim-tmux-navigator'
 "Plug 'dag/vim-fish'
 "Plug 'dhruvasagar/vim-table-mode'
 "Plug 'edkolev/tmuxline.vim'
+"Plug 'gmarik/Vundle.vim' " required
 "Plug 'godlygeek/tabular'
 "Plug 'junegunn/rainbow_parentheses.vim'
 "Plug 'kien/rainbow_parentheses.vim'
+"Plug 'mhartington/nvim-typescript'
 "Plug 'mileszs/ack.vim'
 "Plug 'mxw/vim-jsx'
+"Plug 'roxma/nvim-completion-manager'
 "Plug 'scrooloose/syntastic'
 "Plug 'shougo/deoplete.nvim'
+"Plug 'shougo/neocomplete.vim'
 "Plug 'tpope/vim-fireplace'
 "Plug 'tpope/vim-salve'
 "Plug 'tpope/vim-unimpaired'
 "Plug 'vim-pandoc/vim-pandoc'
 "Plug 'vim-pandoc/vim-pandoc-syntax'
 "Plug 'w0ng/vim-hybrid'
-Plug 'sgur/vim-gitgutter' " lazy gutter
-"Plug 'airblade/vim-gitgutter'
+" YouCompleteMe will fail without CMake
+"Plug 'Valloric/YouCompleteMe', {'do' : './install.py --clang-completer --tern-completer'}
+Plug 'Quramy/tsuquyomi'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'benekastah/neomake'
 Plug 'cdated/rainbow_parentheses.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-conflicted'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'digitaltoad/vim-jade'
 Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go'
-"Plug 'gmarik/Vundle.vim' " required
 Plug 'lambdatoast/elm.vim'
 Plug 'leafgarland/typescript-vim'
+"Plug 'HerringtonDarkholme/yats.vim'
 Plug 'lnl7/vim-nix'
 Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
+"Plug 'maralla/completor.vim'
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-grepper'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'othree/yajs.vim'
 Plug 'plasticboy/vim-markdown'
-Plug 'Quramy/tsuquyomi'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'sgur/vim-gitgutter' " lazy gutter
 Plug 'ternjs/tern_for_vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-" YouCompleteMe will fail without CMake
-Plug 'Valloric/YouCompleteMe', {'do' : './install.py --clang-completer --tern-completer'}
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
-
 " Add plugins to &runtimepath
 call plug#end()
 
@@ -266,22 +277,23 @@ let g:neomake_javascript_eslint_maker = {
     \ '%W%f: line %l\, col %c\, Warning - %m'
     \ }
 
-let node_modules = finddir('node_modules', ';')
-let local_tsc = len(node_modules) != 0 ? './' . node_modules . '/.bin/tsc' : 'tsc'
-let tsconfig = findfile('tsconfig.json', ';')
-let g:neomake_typescript_typescript_project_maker = {
-    \ 'exe': local_tsc,
-    \ 'args': ['--noEmit', '-p', tsconfig],
-    \ 'append_file': 0,
-    \ 'errorformat':
-        \ '%E%f %#(%l\,%c): error %m,' .
-        \ '%E%f %#(%l\,%c): %m,' .
-        \ '%Eerror %m,' .
-        \ '%C%\s%\+%m'
-    \ }
+"let node_modules = finddir('node_modules', ';')
+"let local_tsc = len(node_modules) != 0 ? './' . node_modules . '/.bin/tsc' : 'tsc'
+"let tsconfig = findfile('tsconfig.json', ';')
+"let g:neomake_typescript_typescript_project_maker = {
+    "\ 'exe': local_tsc,
+    "\ 'args': ['--noEmit', '-p', tsconfig],
+    "\ 'append_file': 0,
+    "\ 'errorformat':
+        "\ '%E%f %#(%l\,%c): error %m,' .
+        "\ '%E%f %#(%l\,%c): %m,' .
+        "\ '%Eerror %m,' .
+        "\ '%C%\s%\+%m'
+    "\ }
 
 let g:neomake_javascript_enabled_makers = ['eslint_d']
-let g:neomake_typescript_enabled_makers = ['tslint', 'typescript_project']
+let g:neomake_typescript_enabled_makers = ['tslint']
+let g:neomake_go_enabled_makers = ['go', 'golint', 'govet']
 
 let g:multi_cursor_exit_from_insert_mode = 0
 let g:multi_cursor_exit_from_visual_mode = 0
@@ -306,7 +318,7 @@ nnoremap <M-n> :lne<cr>
 nnoremap <M-p> :lprevious<cr>
 nnoremap <silent> <C-;> :lne<cr>
 
-:let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+":let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 au WinLeave * set nocursorline nocursorcolumn
 au WinEnter * set cursorline cursorcolumn
@@ -330,3 +342,44 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Space>j <Plug>(easymotion-j)
 map <Space>k <Plug>(easymotion-k)
+
+"let g:ycm_semantic_triggers['typescript'] = ['.']
+"
+"
+" css completion via `csscomplete#CompleteCSS`
+" The `'cm_refresh_patterns'` is PCRE.
+" Be careful with `'scoping': 1` here, not all sources, especially omnifunc,
+" can handle this feature properly.
+"au User CmSetup call cm#register_source({'name' : 'cm-ts',
+		"\ 'priority': 9, 
+		"\ 'scoping': 1,
+		"\ 'scopes': ['typescript'],
+		"\ 'abbreviation': 'ts',
+		""\ 'cm_refresh_patterns':['.$'],
+		"\ 'cm_refresh': {'omnifunc': 'tsuquyomi#complete'},
+		"\ })
+
+"let g:completor_typescript_omni_trigger = '(-?\d*\.\d\w*)|([^\`\~\!\@\#\$\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\''\"\,\.\<\>\/\?\s]+)$'
+
+"if !exists("g:ycm_semantic_triggers")
+   "let g:ycm_semantic_triggers = {}
+"endif
+"let g:ycm_semantic_triggers['typescript'] = ['.']
+"set completeopt-=preview
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.typescript = '[^. *\t]\.\w*'
+
+
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ deoplete#mappings#manual_complete()
+
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
+let g:deoplete#sources#rust#racer_binary='/home/lelandmiller/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='/home/lelandmiller/pkg/rust/src'

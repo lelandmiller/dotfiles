@@ -30,6 +30,7 @@ if ! zgen saved; then
 
     zgen load tarruda/zsh-autosuggestions
     zgen load zsh-users/zsh-syntax-highlighting
+    zgen load nviennot/zsh-vim-plugin
 
     # bulk load
     zgen loadall <<EOPLUGINS
@@ -57,6 +58,7 @@ fi
 
 #source "${ZDOTDIR:-$HOME}/base16-builder/output/shell/base16-monokai.dark.sh"
 #export PATH=/home/lelandmiller/bin:$PATH
+path+=("${HOME}/.cargo/bin")
 path+=("${HOME}/bin" "${HOME}/Library/Haskell/bin")
 path+=("${HOME}/local/bin")
 path+=("${HOME}/bin/gradle-3.3/bin")
@@ -64,7 +66,7 @@ path+=("${HOME}/.npm-packages/bin")
 path+=("${HOME}/dotfiles/bin")
 path+=("${HOME}/.gem/ruby/2.2.0/bin")
 
-export BROWSER=chrome
+export BROWSER=google-chrome-stable
 export TERM=xterm-256color # Get colors in ls etc
 export EDITOR=nvim
 bindkey -e
@@ -101,3 +103,5 @@ alias vs="visual-studio-code ."
 alias sl="subl3 ."
 
 source ~/dotfiles/pkg/base16-atelier-lakeside.sh
+export NVS_HOME="$HOME/.nvs"
+[ -s "$NVS_HOME/nvs.sh" ] && . "$NVS_HOME/nvs.sh"

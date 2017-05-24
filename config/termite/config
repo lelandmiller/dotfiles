@@ -51,37 +51,75 @@ cursor_shape = block
 
 # vim: ft=dosini
 
+#[colors]
+## Base16 Atelier Lakeside
+## Scheme: Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/lakeside/)
+#
+#foreground      = #7ea2b4
+#foreground_bold = #7ea2b4
+#cursor          = #7ea2b4
+#background      = #161b1d
+#
+## 16 color space
+#color0  = #161b1d
+#color1  = #d22d72
+#color2  = #568c3b
+#color3  = #8a8a0f
+#color4  = #257fad
+#color5  = #6b6bb8
+#color6  = #2d8f6f
+#color7  = #7ea2b4
+#color8  = #5a7b8c
+#color9  = #d22d72
+#color10 = #568c3b
+#color11 = #8a8a0f
+#color12 = #257fad
+#color13 = #6b6bb8
+#color14 = #2d8f6f
+#color15 = #ebf8ff
+#
+## 256 color space
+#color16 = #935c25
+#color17 = #b72dd2
+#color18 = #1f292e
+#color19 = #516d7b
+#color20 = #7195a8
+#color21 = #c1e4f6
 [colors]
-# Base16 Atelier Lakeside
-# Scheme: Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/lakeside/)
+# hard contrast: background = #1d2021
+background = #282828
+# soft contrast: background = #32302f
+foreground = #ebdbb2
+foreground_bold = #ebdbb2
 
-foreground      = #7ea2b4
-foreground_bold = #7ea2b4
-cursor          = #7ea2b4
-background      = #161b1d
+# dark0 + gray
+color0 = #282828
+color8 = #928374
 
-# 16 color space
-color0  = #161b1d
-color1  = #d22d72
-color2  = #568c3b
-color3  = #8a8a0f
-color4  = #257fad
-color5  = #6b6bb8
-color6  = #2d8f6f
-color7  = #7ea2b4
-color8  = #5a7b8c
-color9  = #d22d72
-color10 = #568c3b
-color11 = #8a8a0f
-color12 = #257fad
-color13 = #6b6bb8
-color14 = #2d8f6f
-color15 = #ebf8ff
+# neutral_red + bright_red
+color1 = #cc241d
+color9 = #fb4934
 
-# 256 color space
-color16 = #935c25
-color17 = #b72dd2
-color18 = #1f292e
-color19 = #516d7b
-color20 = #7195a8
-color21 = #c1e4f6
+# neutral_green + bright_green
+color2 = #98971a
+color10 = #b8bb26
+
+# neutral_yellow + bright_yellow
+color3 = #d79921
+color11 = #fabd2f
+
+# neutral_blue + bright_blue
+color4 = #458588
+color12 = #83a598
+
+# neutral_purple + bright_purple
+color5 = #b16286
+color13 = #d3869b
+
+# neutral_aqua + faded_aqua
+color6 = #689d6a
+color14 = #8ec07c
+
+# light4 + light1
+color7 = #a89984
+color15 = #ebdbb2

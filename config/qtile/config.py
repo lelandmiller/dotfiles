@@ -99,9 +99,9 @@ keys = [
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     # Key([mod], "r", lazy.spawncmd()),
-    Key([mod], "q", lazy.to_screen(2)),
-    Key([mod], "w", lazy.to_screen(0)),
-    Key([mod], "e", lazy.to_screen(1)),
+    Key([mod], "w", lazy.to_screen(2)),
+    Key([mod], "e", lazy.to_screen(0)),
+    Key([mod], "r", lazy.to_screen(1)),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]

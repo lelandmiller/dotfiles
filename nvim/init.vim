@@ -1,23 +1,23 @@
 set shell=sh
 
-"set nocompatible             " required for Vundle and more 
-" filetype off                  " required Vundle
-
-" vim-plug
-
 call plug#begin('~/.config/nvim/plugged')
 
-
-
 "Plug 'Lokaltog/vim-easymotion'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'iCyMind/NeoSolarized'
+Plug 'morhetz/gruvbox'
+
+Plug 'raphamorim/lucario'
+Plug 'jacoborus/tender.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'sebastianmarkow/deoplete-rust'
+Plug 'jaawerth/nrun.vim'
 
 "Plug 'airblade/vim-gitgutter'
 "Plug 'alunny/pegjs-vim'
-"Plug 'bling/vim-airline'
+Plug 'bling/vim-airline'
 "Plug 'dag/vim-fish'
 "Plug 'dhruvasagar/vim-table-mode'
 "Plug 'edkolev/tmuxline.vim'
@@ -77,12 +77,6 @@ Plug 'yggdroot/indentLine'
 " Add plugins to &runtimepath
 call plug#end()
 
-" filetype plugin indent on    " required
-"set omnifunc=syntaxcomplete#Complete
-" see :h vundle for more details or wiki for FAQ
-
-"autocmd FileType javascript setlocal omnifunc=tern#Complete
-
 "" Misc
 syntax on
 set mouse=a
@@ -92,11 +86,41 @@ set incsearch
 set ignorecase
 set smartcase
 
-let base16colorspace=256
+" Color Theme
+"
+"let base16colorspace=256
+"set background=dark
+"colorscheme base16-default-dark
+"let g:airline_theme = 'base16'
+
+
+let g:gitgutter_override_sign_column_highlight = 0
+" if you have vim >=8.0 or neovim >= 0.1.5
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+" for neovim 0.1.3 and 0.1.4
+let $nvim_tui_enable_true_color=1
+
+" theme
+syntax enable
+
+let g:gruvbox_italic=1
 set background=dark
-"colorscheme solarized
-"colorscheme base16-monokai
-colorscheme base16-default-dark
+colorscheme gruvbox
+let g:airline_theme = 'gruvbox'
+
+"colorscheme tender
+"let g:airline_theme = 'tender'
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+
+
+
+
+
 
 set number
 set relativenumber
@@ -112,9 +136,6 @@ set tabstop=4
 " Was used for ctrl-p, still may be useful
 :set wildignore+=*.o,*.obj,**/.git/*,**/.svn/*,**/node_modules/*,**/build/*,**/dist/*
 
-"" Unite
-"nnoremap <C-p> :Unite file_rec/async<CR>
-
 " setting the indenting width for html, xml and php files (you can add more)
 autocmd FileType html,xml,php setlocal expandtab shiftwidth=4 tabstop=4
 autocmd FileType scss setlocal expandtab shiftwidth=4 tabstop=4
@@ -125,7 +146,7 @@ set tw=80
 let g:vim_markdown_initial_foldlevel=3
 let g:vim_markdown_frontmatter=1
 
-" Enable JsBeautify Plugin 
+" Enable JsBeautify Plugin
 autocmd FileType javascript noremap <buffer> <Leader>f :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <Leader>f :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <Leader>f :call CSSBeautify()<cr>
@@ -144,47 +165,14 @@ au FileType go nmap <Leader>gt :GoTest<cr>
 
 "" NERDtree
 map <C-n> :NERDTreeToggle<CR>
+noremap <Leader>nf :NERDTreeFind<CR>
 
 " Start NERDTree on no files specified
 " autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-
-"set laststatus=2
-
-" syntastic config
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"jslint
-"let g:syntastic_javascript_checkers = ['eslint']
-"let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-
-"let g:tsuquyomi_disable_quickfix = 1
-"let g:syntastic_typescript_checkers = ['tslint', 'tsuquyomi'] " You shouldn't use 'tsc' checker.
-
-"let g:syntastic_aggregate_errors = 1
-
 "key to remove highlighting
 :map <Leader>h  :noh<Return><Esc>
-
-"powerline
-let g:airline_powerline_fonts = 1
-let g:tmuxline_preset = {
-      \'a'    : '#S',
-      \'win'  : '#I #W',
-      \'cwin' : '#I #W',
-      \'x'    : '#(battery Charging; battery Discharging)',
-      \'y'    : ['%x', '%R'],
-      \'z'    : '#(whoami)'}
 
 " Turn on spelling
 autocmd BufRead,BufNewFile *.md setlocal spell
@@ -196,40 +184,10 @@ let g:pandoc#toc#close_after_navigating=0
 
 noremap <Leader>b :TagbarOpen fj<cr>
 
-" " :Shell open command in scratch buffer
-" command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-" function! s:RunShellCommand(cmdline)
-"   echo a:cmdline
-"   let expanded_cmdline = a:cmdline
-"   for part in split(a:cmdline, ' ')
-"      if part[0] =~ '\v[%#<]'
-"         let expanded_part = fnameescape(expand(part))
-"         let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-"      endif
-"   endfor
-"   botright new
-"   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-"   call setline(1, 'You entered:    ' . a:cmdline)
-"   call setline(2, 'Expanded Form:  ' .expanded_cmdline)
-"   call setline(3,substitute(getline(2),'.','=','g'))
-"   execute '$read !'. expanded_cmdline
-"   setlocal nomodifiable
-"   1
-" endfunction
-" 
-" 
-" au FileType go nmap <Leader>ccsc :Shell ccsc<cr>
-" 
-" set guioptions-=m
-" set guioptions-=T
-" set guioptions-=r
-" set guioptions-=L
-
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-
 
 " Custom Key Bindings
 let g:tmux_navigator_no_mappings = 1
@@ -244,9 +202,12 @@ nnoremap <silent> <C-j>/ :TmuxNavigatePrevious<cr>
 
 " tmux...other invisibles other plugins
 
+:set list listchars=tab:»·,trail:·
 let g:indentLine_char = '┊'
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_color_dark = 1
+let g:indentLine_color_gui = '#bbbbbb'
 " You also can use other characters:˽˰··
 
 let g:multi_cursor_use_default_mapping=0
@@ -262,34 +223,30 @@ let g:vim_json_syntax_conceal = 0
 autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
 
-" Use local eslint if available
-"function! neomake#makers#ft#javascript#eslint()
-let local_eslint = finddir('node_modules', ';') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-    let local_eslint = getcwd() . "/" . local_eslint
-endif
-let eslintexec = executable(local_eslint) ? local_eslint : 'eslint'
+au BufEnter *.js let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
+"au BufEnter *.ts let b:neomake_typescript_tslint_exe = nrun#Which('tslint')
+"
+function! GetLocalNpm(bin)
+    let local_tslint = finddir('node_modules', ';') . '/.bin/' . bin
+    if matchstr(local_tslint, "^\/\\w") == ''
+        let local_tslint = getcwd() . "/" . local_tslint
+    endif
+    return local_tslint
+endfunction
 
-let g:neomake_javascript_eslint_maker = {
-    \ 'exe': eslintexec,
-    \ 'args': ['-f', 'compact'],
-    \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-    \ '%W%f: line %l\, col %c\, Warning - %m'
-    \ }
+"TODO refactor
+function! SetLocalTSLint()
+    let local_tslint = finddir('node_modules', ';') . '/.bin/tslint'
+    if matchstr(local_tslint, "^\/\\w") == ''
+        let local_tslint = getcwd() . "/" . local_tslint
+    endif
+    let exe = executable(local_tslint) ? local_tslint : 'tslint'
+    let b:neomake_typescript_tslint_exe = exe
+endfunction
 
-"let node_modules = finddir('node_modules', ';')
-"let local_tsc = len(node_modules) != 0 ? './' . node_modules . '/.bin/tsc' : 'tsc'
-"let tsconfig = findfile('tsconfig.json', ';')
-"let g:neomake_typescript_typescript_project_maker = {
-    "\ 'exe': local_tsc,
-    "\ 'args': ['--noEmit', '-p', tsconfig],
-    "\ 'append_file': 0,
-    "\ 'errorformat':
-        "\ '%E%f %#(%l\,%c): error %m,' .
-        "\ '%E%f %#(%l\,%c): %m,' .
-        "\ '%Eerror %m,' .
-        "\ '%C%\s%\+%m'
-    "\ }
+":call SetLocalTSLint()
+au BufEnter *.ts :call SetLocalTSLint()
+au BufEnter *.tsx :call SetLocalTSLint()
 
 let g:neomake_javascript_enabled_makers = ['eslint_d']
 let g:neomake_typescript_enabled_makers = ['tslint']
@@ -322,7 +279,6 @@ nnoremap <silent> <C-;> :lne<cr>
 
 au WinLeave * set nocursorline nocursorcolumn
 au WinEnter * set cursorline cursorcolumn
-"
 
 " Easymotion
 
@@ -343,33 +299,9 @@ let g:EasyMotion_smartcase = 1
 map <Space>j <Plug>(easymotion-j)
 map <Space>k <Plug>(easymotion-k)
 
-"let g:ycm_semantic_triggers['typescript'] = ['.']
-"
-"
-" css completion via `csscomplete#CompleteCSS`
-" The `'cm_refresh_patterns'` is PCRE.
-" Be careful with `'scoping': 1` here, not all sources, especially omnifunc,
-" can handle this feature properly.
-"au User CmSetup call cm#register_source({'name' : 'cm-ts',
-		"\ 'priority': 9, 
-		"\ 'scoping': 1,
-		"\ 'scopes': ['typescript'],
-		"\ 'abbreviation': 'ts',
-		""\ 'cm_refresh_patterns':['.$'],
-		"\ 'cm_refresh': {'omnifunc': 'tsuquyomi#complete'},
-		"\ })
-
-"let g:completor_typescript_omni_trigger = '(-?\d*\.\d\w*)|([^\`\~\!\@\#\$\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\''\"\,\.\<\>\/\?\s]+)$'
-
-"if !exists("g:ycm_semantic_triggers")
-   "let g:ycm_semantic_triggers = {}
-"endif
-"let g:ycm_semantic_triggers['typescript'] = ['.']
-"set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni_patterns = {}
 let g:deoplete#omni_patterns.typescript = '[^. *\t]\.\w*'
-
 
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :

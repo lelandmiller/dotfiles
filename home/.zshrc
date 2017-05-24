@@ -27,10 +27,11 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/lein
     zgen oh-my-zsh plugins/pip
     zgen oh-my-zsh plugins/sudo
+    #zgen oh-my-zsh plugins/vi-mode
 
     zgen load tarruda/zsh-autosuggestions
     zgen load zsh-users/zsh-syntax-highlighting
-    zgen load nviennot/zsh-vim-plugin
+    #zgen load nviennot/zsh-vim-plugin
 
     # bulk load
     zgen loadall <<EOPLUGINS
@@ -102,6 +103,25 @@ alias distc="git checkout dist && git clean -fd dist"
 alias vs="visual-studio-code ."
 alias sl="subl3 ."
 
-source ~/dotfiles/pkg/base16-atelier-lakeside.sh
+#source ~/dotfiles/pkg/base16-atelier-lakeside.sh
+
 export NVS_HOME="$HOME/.nvs"
 [ -s "$NVS_HOME/nvs.sh" ] && . "$NVS_HOME/nvs.sh"
+
+## c/o http://lynnard.me/blog/2014/01/05/change-cursor-shape-for-zsh-vi-mode/
+#echo -ne "\e[4 q"
+#zle-keymap-select () {
+    #if [ "$TERM" = "xterm-256color" ]; then
+        #if [ $KEYMAP = vicmd ]; then
+            ## the command mode for vi
+            #echo -ne "\e[2 q"
+        #else
+            ## the insert mode for vi
+            #echo -ne "\e[4 q"
+        #fi
+    #fi
+#}
+
+## 10ms for key sequences
+#KEYTIMEOUT=1
+

@@ -63,7 +63,7 @@ path+=("${HOME}/.cargo/bin")
 path+=("${HOME}/bin" "${HOME}/Library/Haskell/bin")
 path+=("${HOME}/local/bin")
 path+=("${HOME}/bin/gradle-3.3/bin")
-path+=("${HOME}/.npm-packages/bin")
+PATH=${HOME}/.npm-packages/bin:$PATH
 path+=("${HOME}/dotfiles/bin")
 path+=("${HOME}/.gem/ruby/2.2.0/bin")
 
@@ -125,3 +125,4 @@ export NVS_HOME="$HOME/.nvs"
 ## 10ms for key sequences
 #KEYTIMEOUT=1
 
+source ~/.secrets.zsh

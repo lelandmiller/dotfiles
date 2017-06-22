@@ -81,12 +81,21 @@
 "pulseaudio-ctl mute"
   XF86AudioMute
 
-"playerctl play-pause; deadbeef --toggle-pause"
+"playerctl play-pause"
   XF86AudioPlay
 
-"playerctl next; deadbeef --next"
+"playerctl next"
   XF86AudioNext
 
-"playerctl previous; deadbeef --prev"
+"playerctl previous"
   XF86AudioPrev
+
+"deadbeef --toggle-pause"
+  XF86AudioPlay + control
+
+"deadbeef --next"
+  XF86AudioNext + control
+
+"deadbeef --prev"
+  XF86AudioPrev + control
 

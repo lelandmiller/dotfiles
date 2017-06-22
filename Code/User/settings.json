@@ -15,11 +15,14 @@
     "terminal.integrated.fontFamily": "'Hack'",
     "workbench.iconTheme": "vs-seti",
     "typescript.referencesCodeLens.enabled": true,
-    "[cpp]": {
-        "editor.quickSuggestions": false
-    },
-    "[c]": {
-        "editor.quickSuggestions": false
-    },
-    "window.zoomLevel": 0
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Gruvbox Dark (Medium)",
+    "vim.enableNeovim": true,
+    "vim.disableAnnoyingNeovimMessage": true,
+    "editor.minimap.enabled": false,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/!(@getgo)/**": true
+    }
 }

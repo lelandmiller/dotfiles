@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "prefix=/home/lelandmiller/.npm-packages" > ~/.npmrc
+echo "prefix=${HOME}/.npm-packages" > ~/.npmrc

@@ -68,6 +68,8 @@ path+=("${HOME}/dotfiles/bin")
 path+=("${HOME}/.gem/ruby/2.2.0/bin")
 path+=("${HOME}/.gem/ruby/2.6.0/bin")
 
+source ~/dotfiles/scripts/*
+
 export BROWSER=google-chrome-stable
 export TERM=xterm-256color # Get colors in ls etc
 export EDITOR=nvim

@@ -1,7 +1,7 @@
 #/bin/sh
 
 export DE=generic
-compton -b --inactive-dim .1 --backend glx -im --no-fading-openclose
+compton -b --inactive-dim .1 --no-fading-openclose
 xfce4-power-manager
 
 xbindkeys

@@ -12,7 +12,8 @@
     "editor.cursorStyle": "block",
     "vim.useCtrlKeys": true,
     "vim.hlsearch": true,
-    "terminal.integrated.fontFamily": "'Hack'",
+    "terminal.integrated.fontFamily": "'Fira Code'",
+    // "terminal.integrated.fontFamily": "'Hasklig'",
     "workbench.iconTheme": "vs-seti",
     "typescript.referencesCodeLens.enabled": true,
     "window.zoomLevel": 0,
@@ -24,5 +25,15 @@
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,
         "**/node_modules/!(@getgo)/**": true
-    }
+    },
+    "rust.rustup": {
+        "toolchain": "stable-x86_64-unknown-linux-gnu"
+    },
+    "rust.mode": "legacy",
+    "rust.rls": {
+        "useRustfmt": true
+    },
+    "editor.fontFamily": "'Fira Code'",
+    "editor.fontLigatures": true,
+    "terminal.integrated.fontLigatures": true
 }

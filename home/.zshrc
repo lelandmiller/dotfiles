@@ -24,7 +24,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/dirhistory
     zgen oh-my-zsh plugins/git
     zgen oh-my-zsh plugins/gulp
-    zgen oh-my-zsh plugins/lein
+    #zgen oh-my-zsh plugins/lein
     zgen oh-my-zsh plugins/pip
     zgen oh-my-zsh plugins/sudo
     #zgen oh-my-zsh plugins/vi-mode
@@ -66,6 +66,7 @@ path+=("${HOME}/bin/gradle-3.3/bin")
 PATH=${HOME}/.npm-packages/bin:$PATH
 path+=("${HOME}/dotfiles/bin")
 path+=("${HOME}/.gem/ruby/2.2.0/bin")
+path+=("${HOME}/.gem/ruby/2.6.0/bin")
 
 export BROWSER=google-chrome-stable
 export TERM=xterm-256color # Get colors in ls etc

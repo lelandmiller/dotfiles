@@ -28,7 +28,7 @@ from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
 
-from systray import Systray
+# from systray import Systray
 import subprocess
 import os
 
@@ -138,7 +138,7 @@ screens = [
                 widget.GroupBox(),
                 widget.WindowName(),
                 widget.Systray(),
-                Systray(),
+                # Systray(),
                 widget.Notify(),
                 widget.BatteryIcon(battery_name='BAT0'),
                 widget.BatteryIcon(battery_name='BAT1'),

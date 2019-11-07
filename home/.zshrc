@@ -129,3 +129,6 @@ export NVS_HOME="$HOME/.nvs"
 #KEYTIMEOUT=1
 
 source ~/.secrets.zsh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

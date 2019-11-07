@@ -2,7 +2,11 @@ set shell=sh
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'tpope/vim-rails'
+
 "Plug 'Lokaltog/vim-easymotion'
+Plug 'dense-analysis/ale'
+
 Plug 'vim-airline/vim-airline-themes'
 Plug 'iCyMind/NeoSolarized'
 Plug 'morhetz/gruvbox'
@@ -72,7 +76,7 @@ Plug 'ternjs/tern_for_vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'xuyuanp/nerdtree-git-plugin'
+"Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
 " Add plugins to &runtimepath
 call plug#end()
@@ -167,9 +171,13 @@ au FileType go nmap <Leader>gt :GoTest<cr>
 map <C-n> :NERDTreeToggle<CR>
 noremap <Leader>nf :NERDTreeFind<CR>
 
+
 " Start NERDTree on no files specified
 " autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 "key to remove highlighting
 :map <Leader>h  :noh<Return><Esc>
@@ -208,6 +216,7 @@ let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_color_dark = 1
 let g:indentLine_color_gui = '#bbbbbb'
+let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
 " You also can use other characters:˽˰··
 
 let g:multi_cursor_use_default_mapping=0
@@ -256,18 +265,18 @@ let g:multi_cursor_exit_from_insert_mode = 0
 let g:multi_cursor_exit_from_visual_mode = 0
 
 " Called once right before you start selecting multiple cursors
-function! Multiple_cursors_before()
-  if exists(':NeoCompleteLock')==2
-    exe 'NeoCompleteLock'
-  endif
-endfunction
+"function! Multiple_cursors_before()
+  "if exists(':NeoCompleteLock')==2
+    "exe 'NeoCompleteLock'
+  "endif
+"endfunction
 
 " Called once only when the multiple selection is canceled (default <Esc>)
-function! Multiple_cursors_after()
-  if exists(':NeoCompleteUnlock')==2
-    exe 'NeoCompleteUnlock'
-  endif
-endfunction
+"function! Multiple_cursors_after()
+  "if exists(':NeoCompleteUnlock')==2
+    "exe 'NeoCompleteUnlock'
+  "endif
+"endfunction
 
 nnoremap <leader>ag :Grepper -tool ag -open -switch<cr>
 
@@ -299,19 +308,38 @@ let g:EasyMotion_smartcase = 1
 map <Space>j <Plug>(easymotion-j)
 map <Space>k <Plug>(easymotion-k)
 
+"let g:deoplete#enable_at_startup = 1
+"let g:deoplete#omni_patterns = {}
+"let g:deoplete#omni_patterns.typescript = '[^. *\t]\.\w*'
+
+"inoremap <silent><expr> <TAB>
+            "\ pumvisible() ? "\<C-n>" :
+            "\ <SID>check_back_space() ? "\<TAB>" :
+            "\ deoplete#mappings#manual_complete()
+
+"function! s:check_back_space() abort "{{{
+    "let col = col('.') - 1
+    "return !col || getline('.')[col - 1]  =~ '\s'
+"endfunction"}}}
+
+"let g:deoplete#sources#rust#racer_binary='/home/lelandmiller/.cargo/bin/racer'
+"let g:deoplete#sources#rust#rust_source_path='/home/lelandmiller/pkg/rust/src'
+
+
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.typescript = '[^. *\t]\.\w*'
+
+" Use ALE and also some plugin 'foobar' as completion sources for all code.
+"call deoplete#custom#option('sources', {
+"\ '_': ['ale'],
+"\})
 
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
             \ <SID>check_back_space() ? "\<TAB>" :
-            \ deoplete#mappings#manual_complete()
-
+            \ deoplete#manual_complete()
 function! s:check_back_space() abort "{{{
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
-let g:deoplete#sources#rust#racer_binary='/home/lelandmiller/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path='/home/lelandmiller/pkg/rust/src'
+
